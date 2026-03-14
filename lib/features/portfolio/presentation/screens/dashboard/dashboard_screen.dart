@@ -59,41 +59,46 @@ class DashboardScreen extends StatelessWidget {
         builder: (context, isDark) {
           return BlocBuilder<PortfolioBloc, PortfolioState>(
             builder: (context, state) {
-              return CustomScrollView(
-                slivers: [
-                  _buildAppBar(context, isDark, theme),
-                  SliverToBoxAdapter(
-                    child: Builder(
-                      builder: (context) {
-                        if (state is PortfolioLoading ||
-                            state is PortfolioInitial) {
-                          return Skeletonizer(
-                            enabled: true,
-                            child: _buildContent(
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<PortfolioBloc>().add(RefreshPortfolio());
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    _buildAppBar(context, isDark, theme),
+                    SliverToBoxAdapter(
+                      child: Builder(
+                        builder: (context) {
+                          if (state is PortfolioLoading ||
+                              state is PortfolioInitial) {
+                            return Skeletonizer(
+                              enabled: true,
+                              child: _buildContent(
+                                context,
+                                dummyPortfolio,
+                                80.0,
+                                colors,
+                                theme,
+                                isSkeleton: false,
+                              ),
+                            );
+                          } else if (state is PortfolioError) {
+                            return _buildError(context, state.message);
+                          } else if (state is PortfolioLoaded) {
+                            return _buildContent(
                               context,
-                              dummyPortfolio,
-                              80.0,
+                              state.portfolio,
+                              state.greenScore,
                               colors,
                               theme,
-                              isSkeleton: false,
-                            ),
-                          );
-                        } else if (state is PortfolioError) {
-                          return _buildError(context, state.message);
-                        } else if (state is PortfolioLoaded) {
-                          return _buildContent(
-                            context,
-                            state.portfolio,
-                            state.greenScore,
-                            colors,
-                            theme,
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
+                            );
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           );
@@ -160,13 +165,6 @@ class DashboardScreen extends StatelessWidget {
                   key: ValueKey(isDark),
                 ),
               ),
-            ),
-            IconButton(
-              padding: const EdgeInsets.all(4),
-              constraints: const BoxConstraints(),
-              onPressed: () =>
-                  context.read<PortfolioBloc>().add(RefreshPortfolio()),
-              icon: const Icon(size: 20, Icons.refresh_rounded),
             ),
             const SizedBox(width: 6),
           ],
