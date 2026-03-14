@@ -1,72 +1,87 @@
-# green_stocks 
-
-Flutter Stock Portfolio App
+# Flutter Stock Portfolio App
 
 A Flutter application to track stock prices, manage a portfolio, and visualize performance using charts.
 
-🚀 Features
+---
 
-Track stock prices
+## 🚀 Features
 
-Manage portfolio
+ Track stock prices
 
-View stock price charts
+ Manage portfolio
 
-Local data storage
+ View stock price charts
 
-Smooth animations and modern UI
+ Local data storage
 
-📦 Packages Used
-💾 Local Storage
+ Smooth animations and modern UI
 
-hive / hive_flutter
-Used to store portfolio data locally.
+---
 
-⚙️ Dependency Injection
+## 📦 Packages Used
 
-get_it
-Used for service locator and dependency injection.
+**💾 Local Storage**
 
-🌐 Networking
+ hive / hive_flutter  
+ Stores portfolio data locally.
 
-dio
-Used to fetch stock price data from APIs.
+**⚙️ Dependency Injection**
 
-📊 Charts
+ get_it  
+ Service locator for dependency injection.
 
-fl_chart
-Used to display stock price charts and portfolio graphs.
+**🌐 Networking**
 
-🎨 UI
+ dio  
+ Fetches stock data from APIs.
 
-google_fonts – Custom fonts
+**📊 Charts**
 
-skeletonizer – Loading skeleton UI
+ fl_chart  
+ Displays stock price charts and portfolio graphs.
 
-percent_indicator – Portfolio percentage indicator
+**🎨 UI**
 
-✨ Animations
+ google_fonts  
+ Custom fonts
 
-animations – Page transitions
+ skeletonizer  
+ Loading skeleton UI
 
-flutter_animate – UI animations
+ percent_indicator  
+ Portfolio percentage indicator
 
-lottie – JSON animations
+**✨ Animations**
 
-🧰 Utilities
+ animations  
+ Page transitions
 
-intl – Date and currency formatting
+ flutter_animate  
+ UI animations
 
-dartz – Functional error handling
+ lottie  
+ JSON animations
 
-🔁 State Management
+**🧰 Utilities**
 
-flutter_bloc – State management
+ intl  
+ Date and currency formatting
 
-equatable – Simplifies state comparison
+ dartz  
+ Functional error handling
 
-rxdart – Stream utilities
+**🔁 State Management**
 
-📱 Responsiveness
+ flutter_bloc  
+ State management
 
-flutter_screenutil – Responsive UI scaling
+ equatable  
+ State comparison
+
+ rxdart  
+ Stream utilities
+
+**📱 Responsiveness**
+
+ flutter_screenutil  
+ Responsive UI scaling
