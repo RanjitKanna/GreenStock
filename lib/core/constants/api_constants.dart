@@ -1,6 +1,8 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
   ApiConstants._();
 
-  static const String alphaVantageKey = 'IGBL4G3QZ6X4XAP2';
-  static const String alphaVantageBase = 'https://www.alphavantage.co/query';
+  static String get alphaVantageKey => dotenv.get('ALPHA_VANTAGE_KEY', fallback: '');
+  static String get alphaVantageBase => dotenv.get('ALPHA_VANTAGE_BASE', fallback: '');
 }
