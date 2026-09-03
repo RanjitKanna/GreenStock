@@ -15,19 +15,33 @@ jobs:
 
     steps:
 
+      # 1. Get the source code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.0'
+          channel: 'stable'
+          cache: true
 
+      # 3. Get Flutter dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4. Check Dart/Flutter code
       - name: Analyze code
         run: flutter analyze
 
+      # 5. Build release APK
       - name: Build APK
         run: flutter build apk --release
+
+      # 7. Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: GreenStock-APK
+          path: build/app/outputs/flutter-apk/app-release.apk
