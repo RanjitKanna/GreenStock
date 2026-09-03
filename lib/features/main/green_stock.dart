@@ -40,26 +40,23 @@ class GreenStockApp extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, bool>(
         builder: (context, isDark) {
-          return AnimatedTheme(
-            data: isDark ? AppTheme.dark : AppTheme.light,
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 400),
-            child: ScreenUtilInit(
-              designSize: const Size(375, 812),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (context, child) {
-                return MaterialApp(
-                  title: 'GreenStock — Eco Portfolio',
-                  theme: AppTheme.light,
-                  darkTheme: AppTheme.dark,
-                  themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
-                  debugShowCheckedModeBanner: false,
-                  home: child,
-                );
-              },
-              child: const MainShell(),
-            ),
+          return ScreenUtilInit(
+            designSize: const Size(375, 812),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                title: 'GreenStock — Eco Portfolio',
+                theme: AppTheme.light,
+                darkTheme: AppTheme.dark,
+                themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+                themeAnimationDuration: const Duration(milliseconds: 400),
+                themeAnimationCurve: Curves.easeInOut,
+                debugShowCheckedModeBanner: false,
+                home: child,
+              );
+            },
+            child: const MainShell(),
           );
         },
       ),
