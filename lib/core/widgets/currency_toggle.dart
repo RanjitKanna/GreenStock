@@ -20,7 +20,7 @@ class _CurrencyToggleState extends State<CurrencyToggle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _thumbAlignment;
-  late Animation<double> _thumbWidth;
+
 
   @override
   void initState() {
@@ -34,19 +34,6 @@ class _CurrencyToggleState extends State<CurrencyToggle>
       parent: _controller,
       curve: Curves.easeOutBack,
     );
-
-    _thumbWidth = TweenSequence<double>([
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 32.0, end: 42.0)
-            .chain(CurveTween(curve: Curves.easeOutCubic)),
-        weight: 40,
-      ),
-      TweenSequenceItem(
-        tween: Tween<double>(begin: 42.0, end: 32.0)
-            .chain(CurveTween(curve: Curves.elasticOut)),
-        weight: 60,
-      ),
-    ]).animate(_controller);
 
     if (widget.currentType == CurrencyType.inr) {
       _controller.value = 1.0;
