@@ -35,11 +35,19 @@ jobs:
       - name: Analyze code
         run: flutter analyze
 
-      # 5. Build release APK
+      # 5. Generate mock files for tests
+      - name: Generate mocks
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      # 6. Run automated tests
+      - name: Run unit & widget tests
+        run: flutter test --coverage
+
+      # 7. Build release APK
       - name: Build APK
         run: flutter build apk --release
 
-      # 7. Upload APK
+      # 8. Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
