@@ -10,7 +10,12 @@ on:
       - main
 
 jobs:
-  build:
+
+  # ============================================================
+  # ANDROID
+  # ============================================================
+  android:
+    name: Android CI
     runs-on: ubuntu-latest
 
     steps:
@@ -53,3 +58,71 @@ jobs:
         with:
           name: GreenStock-APK
           path: build/app/outputs/flutter-apk/app-release.apk
+
+      # 9. Build release AAB
+      - name: Build AAB
+        run: flutter build appbundle --release
+
+      # 10. Upload AAB
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: GreenStock-AAB
+          path: build/app/outputs/bundle/release/app-release.aab
+
+
+  # ============================================================
+  # IOS
+  # ============================================================
+  ios:
+    name: iOS CI
+    runs-on: macos-latest
+
+    steps:
+
+      # 1. Get the source code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.0'
+          channel: 'stable'
+          cache: true
+
+      # 3. Get Flutter dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Check Dart/Flutter code
+      - name: Analyze code
+        run: flutter analyze
+
+      # 5. Generate mock files for tests
+      - name: Generate mocks
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      # 6. Run automated tests
+      - name: Run unit & widget tests
+        run: flutter test --coverage
+
+      # 7. Build iOS
+      # No Apple signing yet
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+
+      # 8. Create unsigned IPA
+      - name: Create unsigned IPA
+        run: |
+          mkdir -p Payload
+          cp -R build/ios/iphoneos/Runner.app Payload/
+          zip -r GreenStock-unsigned.ipa Payload
+
+      # 9. Upload IPA
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: GreenStock-IPA
+          path: GreenStock-unsigned.ipa
