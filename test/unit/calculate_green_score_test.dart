@@ -4,44 +4,44 @@ import 'package:green_stocks/features/portfolio/domain/entities/portfolio_stock.
 import 'package:green_stocks/features/portfolio/domain/entities/stock.dart';
 import 'package:green_stocks/features/portfolio/domain/usecases/calculate_green_score.dart';
 
+PortfolioStock _makeHolding({
+  String symbol = 'TEST',
+  double price = 100.0,
+  double quantity = 10,
+  double purchasePrice = 90.0,
+  double co2Emissions = 50.0,
+  double esgScore = 70,
+}) {
+  return PortfolioStock(
+    stock: Stock(
+      symbol: symbol,
+      name: '$symbol Inc.',
+      price: price,
+      change: price - 90,
+      changePercent: ((price - 90) / 90) * 100,
+      volume: 1000,
+      previousClose: 90,
+    ),
+    esgData: EsgData(
+      symbol: symbol,
+      esgScore: esgScore,
+      environmentScore: 60,
+      socialScore: 70,
+      governanceScore: 80,
+      co2Emissions: co2Emissions,
+      sustainabilityRating: EsgData.ratingFromScore(esgScore),
+    ),
+    quantity: quantity,
+    purchasePrice: purchasePrice,
+  );
+}
+
 void main() {
   late CalculateGreenScore calculateGreenScore;
 
   setUp(() {
     calculateGreenScore = const CalculateGreenScore();
   });
-
-  PortfolioStock _makeHolding({
-    String symbol = 'TEST',
-    double price = 100.0,
-    double quantity = 10,
-    double purchasePrice = 90.0,
-    double co2Emissions = 50.0,
-    double esgScore = 70,
-  }) {
-    return PortfolioStock(
-      stock: Stock(
-        symbol: symbol,
-        name: '$symbol Inc.',
-        price: price,
-        change: price - 90,
-        changePercent: ((price - 90) / 90) * 100,
-        volume: 1000,
-        previousClose: 90,
-      ),
-      esgData: EsgData(
-        symbol: symbol,
-        esgScore: esgScore,
-        environmentScore: 60,
-        socialScore: 70,
-        governanceScore: 80,
-        co2Emissions: co2Emissions,
-        sustainabilityRating: EsgData.ratingFromScore(esgScore),
-      ),
-      quantity: quantity,
-      purchasePrice: purchasePrice,
-    );
-  }
 
   group('CalculateGreenScore', () {
     test('returns 100 for empty portfolio', () {
