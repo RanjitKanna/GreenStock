@@ -58,14 +58,11 @@ jobs:
           name: GreenStock-APK
           path: build/app/outputs/flutter-apk/app-release.apk
 
+      # 9. Install Firebase CLI tools
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Authenticate Firebase
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > $HOME/firebase-service-account.json
-          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-service-account.json"
-
+      # 10. Authenticate and upload release APK to Firebase App Distribution
       - name: Distribute APK to Firebase
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
@@ -75,14 +72,14 @@ jobs:
           firebase appdistribution:distribute \
             build/app/outputs/flutter-apk/app-release.apk \
             --app "1:658632287415:android:8b3d68574aa10642879932" \
-            --testers "[EMAIL_ADDRESS]" \
-            --release-notes "GreenStock CI build"
+            --testers "dilliganesh.kmskv@gmail.com" \
+            --release-notes "GreenStock CI/CD Testing build"
 
-      # 9. Build release AAB
+      # 11. Build release AAB (Android App Bundle)
       - name: Build AAB
         run: flutter build appbundle --release
 
-      # 10. Upload AAB
+      # 12. Upload AAB artifact
       - name: Upload AAB
         uses: actions/upload-artifact@v4
         with:
