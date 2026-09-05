@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "658632287415",
+    "project_id": "greenstock-44f90",
+    "storage_bucket": "greenstock-44f90.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658632287415:android:8b3d68574aa10642879932",
+        "android_client_info": {
+          "package_name": "com.greenstock.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEZGdciyieWAHEe1r7GY0wF4XWHwWrOVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
