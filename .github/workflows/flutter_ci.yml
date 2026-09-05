@@ -58,6 +58,26 @@ jobs:
           name: GreenStock-APK
           path: build/app/outputs/flutter-apk/app-release.apk
 
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Authenticate Firebase
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > $HOME/firebase-service-account.json
+          export GOOGLE_APPLICATION_CREDENTIALS="$HOME/firebase-service-account.json"
+
+      - name: Distribute APK to Firebase
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "$GOOGLE_APPLICATION_CREDENTIALS"
+
+          firebase appdistribution:distribute \
+            build/app/outputs/flutter-apk/app-release.apk \
+            --app "1:658632287415:android:8b3d68574aa10642879932" \
+            --testers "[EMAIL_ADDRESS]" \
+            --release-notes "GreenStock CI build"
+
       # 9. Build release AAB
       - name: Build AAB
         run: flutter build appbundle --release
