@@ -1,4 +1,4 @@
-package com.example.green_stocks
+package com.greenstock.app
 
 import io.flutter.embedding.android.FlutterActivity
 
