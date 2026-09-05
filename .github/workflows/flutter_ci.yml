@@ -32,8 +32,8 @@ jobs:
           cache: true
 
       # 3. Get Flutter dependencies
-    - name: Install dependencies
-      run: flutter pub get
+      - name: Install dependencies
+        run: flutter pub get
 
       # 4. Check Dart/Flutter code
     #  - name: Analyze code
