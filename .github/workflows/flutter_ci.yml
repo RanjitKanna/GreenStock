@@ -141,3 +141,21 @@ jobs:
         with:
           name: GreenStock-IPA
           path: GreenStock-unsigned.ipa
+
+      # 10. Install Firebase CLI tools
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      # 11. Authenticate and upload release IPA to Firebase App Distribution
+      - name: Distribute IPA to Firebase
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/firebase-service-account.json
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "$GOOGLE_APPLICATION_CREDENTIALS"
+
+          firebase appdistribution:distribute \
+            GreenStock-unsigned.ipa \
+            --app "1:658632287415:ios:13252638d13188c8879932" \
+            --testers "dilliganesh.kmskv@gmail.com" \
+            --release-notes "GreenStock CI/CD Testing build"
+
