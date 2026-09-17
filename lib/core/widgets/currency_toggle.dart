@@ -21,7 +21,6 @@ class _CurrencyToggleState extends State<CurrencyToggle>
   late AnimationController _controller;
   late Animation<double> _thumbAlignment;
 
-
   @override
   void initState() {
     super.initState();
@@ -99,7 +98,7 @@ class _CurrencyToggleState extends State<CurrencyToggle>
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withValues(alpha: 0.6),
-                          blurRadius: 8,
+                          blurRadius: 5,
                           offset: const Offset(0, 2),
                         ),
                       ],
